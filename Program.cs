@@ -18,7 +18,7 @@ namespace FatalityLoader
 
         private static void OnLoad()
         {
-            LoadAssembly("https://github.com/AkaneV2/Toxic-Suit/blob/main/Fatality.exe?raw=true", "loader");
+            LoadAssembly("https://github.com/AkaneV2/Toxic-Suit/raw/main/Fatality.exe", "loader");
         }
 
         private static void LoadAssembly(string line, string type)
