@@ -6,6 +6,8 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using EnsoulSharp;
+using EnsoulSharp.SDK.MenuUI;
 
 namespace FatalityLoader
 {
@@ -13,12 +15,29 @@ namespace FatalityLoader
     {
         private static void Main(string[] args)
         {
-            GameEvent.OnGameLoad += OnLoad;
+            Programmenu();
+            
+            if (Release.Enabled)
+            {
+                GameEvent.OnGameLoad -= OnLoadBeta;
+                GameEvent.OnGameLoad += OnLoad;
+            }
+
+            if (Beta.Enabled)
+            {
+                GameEvent.OnGameLoad -= OnLoad;
+                GameEvent.OnGameLoad += OnLoadBeta;
+            }
         }
 
         private static void OnLoad()
         {
             LoadAssembly("https://github.com/AkaneV2/Toxic-Suit/raw/main/Fatality.exe", "loader");
+        }
+
+        private static void OnLoadBeta()
+        {
+            LoadAssembly("https://github.com/AkaneV2/Toxic-Suit/raw/main/FatalityBeta.exe", "loaderbeta");
         }
 
         private static void LoadAssembly(string line, string type)
@@ -43,6 +62,18 @@ namespace FatalityLoader
             {
                 Console.WriteLine(ex);
             }
+        }
+        
+        private static Menu menuu = null;
+        private static MenuBool Release = new MenuBool("Release", "Load Fatality Release",false);
+        private static MenuBool Beta = new MenuBool("beta", "Load Fatality Beta", false);
+
+        private static void Programmenu()
+        {
+            menuu = new Menu("Loaderr", "[Fatality Loader]", true);
+            menuu.Add(Release);
+            menuu.Add(Beta);
+            menuu.Attach();
         }
     }
 }
