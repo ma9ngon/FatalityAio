@@ -65,12 +65,14 @@ namespace FatalityLoader
         }
         
         private static Menu menuu = null;
+        private static MenuSeparator note = new MenuSeparator("seperate", "Press F5 after Choosing a Version");
         private static MenuBool Release = new MenuBool("Release", "Load Fatality Release",false);
         private static MenuBool Beta = new MenuBool("beta", "Load Fatality Beta", false);
 
         private static void Programmenu()
         {
             menuu = new Menu("Loaderr", "[Fatality Loader]", true);
+            menuu.Add(note);
             menuu.Add(Release);
             menuu.Add(Beta);
             menuu.Attach();
