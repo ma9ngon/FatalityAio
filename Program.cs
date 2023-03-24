@@ -15,29 +15,12 @@ namespace FatalityLoader
     {
         private static void Main(string[] args)
         {
-            Programmenu();
-            
-            if (Release.Enabled)
-            {
-                GameEvent.OnGameLoad -= OnLoadBeta;
-                GameEvent.OnGameLoad += OnLoad;
-            }
-
-            if (Beta.Enabled)
-            {
-                GameEvent.OnGameLoad -= OnLoad;
-                GameEvent.OnGameLoad += OnLoadBeta;
-            }
+            GameEvent.OnGameLoad += OnLoad;
         }
 
         private static void OnLoad()
         {
             LoadAssembly("https://github.com/AkaneV2/Toxic-Suit/raw/main/Fatality.exe", "loader");
-        }
-
-        private static void OnLoadBeta()
-        {
-            LoadAssembly("https://github.com/AkaneV2/Toxic-Suit/raw/main/FatalityBeta.exe", "loaderbeta");
         }
 
         private static void LoadAssembly(string line, string type)
@@ -62,20 +45,6 @@ namespace FatalityLoader
             {
                 Console.WriteLine(ex);
             }
-        }
-        
-        private static Menu menuu = null;
-        private static MenuSeparator note = new MenuSeparator("seperate", "Press F5 after Choosing a Version");
-        private static MenuBool Release = new MenuBool("Release", "Load Fatality Release",false);
-        private static MenuBool Beta = new MenuBool("beta", "Load Fatality Beta", false);
-
-        private static void Programmenu()
-        {
-            menuu = new Menu("Loaderr", "[Fatality Loader]", true);
-            menuu.Add(note);
-            menuu.Add(Release);
-            menuu.Add(Beta);
-            menuu.Attach();
         }
     }
 }
